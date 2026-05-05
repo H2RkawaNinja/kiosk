@@ -1,0 +1,27 @@
+<%- include('../partials/header', { title: 'Nachrichten' }) %>
+
+<div class="section-title" style="margin-bottom:24px;">Nachrichten</div>
+
+<% if (conversations.length === 0) { %>
+  <div class="empty-state">— Keine Gespräche vorhanden —</div>
+<% } else { %>
+  <div class="inbox-list">
+    <% conversations.forEach(conv => { %>
+      <a href="/messages/<%= conv.listing_id %>/<%= conv.other_user_id %>" class="inbox-item <%= conv.unread_count > 0 ? 'inbox-item--unread' : '' %>">
+        <div class="inbox-item-left">
+          <div class="inbox-listing-title"><%= conv.listing_title %></div>
+          <div class="inbox-preview"><%= conv.preview.length > 80 ? conv.preview.substring(0, 80) + '…' : conv.preview %></div>
+        </div>
+        <div class="inbox-item-right">
+          <div class="inbox-other">mit #<%= conv.other_user_id %></div>
+          <% if (conv.unread_count > 0) { %>
+            <div class="inbox-badge"><%= conv.unread_count %></div>
+          <% } %>
+          <div class="inbox-date"><%= conv.last_at ? new Date(conv.last_at).toLocaleDateString('de-DE') : '' %></div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

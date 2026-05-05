@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: 'Ausstehend' }) %>
+
+<div class="pending-box">
+  <div class="pending-icon">&#9201;</div>
+  <div class="pending-title">Zugang ausstehend</div>
+  <p class="pending-text">
+    Dein Zugangscode wurde erfolgreich registriert.<br><br>
+    Dein Account wartet auf Freischaltung durch einen Broker.<br><br>
+    Sobald die Zugangszahlung bestätigt wurde, wirst du freigeschaltet.<br><br>
+    <span class="pending-hint">— Wende dich an einen Broker für Details. —</span>
+  </p>
+  <form action="/logout" method="POST" style="margin-top:25px;">
+    <button type="submit" class="btn btn-neutral btn-sm">Verlassen</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>

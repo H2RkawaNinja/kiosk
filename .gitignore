@@ -1,0 +1,7 @@
+node_modules/
+schwarzmarkt.db
+schwarzmarkt.db-shm
+schwarzmarkt.db-wal
+public/uploads/*
+!public/uploads/.gitkeep
+.env

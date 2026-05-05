@@ -1,0 +1,51 @@
+<%- include('../partials/header', { title: 'Chat' }) %>
+
+<div class="thread-header">
+  <div>
+    <div class="thread-listing-title">
+      <a href="/listings/<%= listing.id %>"><%= listing.title %></a>
+    </div>
+    <% if (typeof adminView !== 'undefined' && adminView) { %>
+      <div class="thread-meta">[BROKER] #<%= adminBackUser1 %> &harr; #<%= otherUserId %></div>
+    <% } else { %>
+      <div class="thread-meta">Gespräch mit #<%= otherUserId %></div>
+    <% } %>
+  </div>
+  <% if (typeof adminView !== 'undefined' && adminView) { %>
+    <a href="/admin/chats" class="btn btn-neutral btn-sm">&larr; Alle Chats</a>
+  <% } else { %>
+    <a href="/messages" class="btn btn-neutral btn-sm">&larr; Posteingang</a>
+  <% } %>
+</div>
+
+<div class="thread-box">
+  <% if (msgs.length === 0) { %>
+    <div class="empty-state" style="padding:40px 20px;">— Noch keine Nachrichten —</div>
+  <% } else { %>
+    <% msgs.forEach(msg => { %>
+      <% const mine = msg.from_user_id === session.userId; %>
+      <div class="msg-row <%= mine ? 'msg-row--mine' : 'msg-row--theirs' %>">
+        <div class="msg-bubble">
+          <div class="msg-content"><%= msg.content %></div>
+          <div class="msg-meta">
+            #<%= msg.from_user_id %> &nbsp;&bull;&nbsp; <%= new Date(msg.created_at).toLocaleString('de-DE', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) %>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<% if (typeof adminView === 'undefined' || !adminView) { %>
+  <% if (error) { %>
+    <div class="alert alert-error" style="margin-top:14px;"><%= error %></div>
+  <% } %>
+  <form class="thread-form" method="POST" action="/messages/<%= listing.id %>/<%= otherUserId %>">
+    <textarea name="content" maxlength="1000" rows="3" placeholder="Nachricht schreiben..." required autofocus></textarea>
+    <button type="submit" class="btn btn-primary">Senden</button>
+  </form>
+<% } else { %>
+  <div class="own-listing-hint" style="margin-top:14px;">[ Nur-Lesen — Admin-Ansicht ]</div>
+<% } %>
+
+<%- include('../partials/footer') %>

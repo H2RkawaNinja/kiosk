@@ -1,0 +1,34 @@
+<%- include('partials/header', { title: 'Einloggen' }) %>
+
+<div class="form-container">
+  <div class="form-title">Zugang</div>
+
+  <% if (banned) { %>
+    <div class="alert alert-error">Zugang dauerhaft verweigert.</div>
+  <% } %>
+
+  <% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/login" autocomplete="off">
+    <div class="form-group">
+      <label>Zugangscode (8 Ziffern)</label>
+      <input type="text"
+             name="code"
+             maxlength="8"
+             placeholder="&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;"
+             inputmode="numeric"
+             pattern="\d{8}"
+             autocomplete="off"
+             autofocus>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Eintreten</button>
+  </form>
+
+  <p class="form-footer-link">
+    Kein Code? <a href="/register">Registrieren</a>
+  </p>
+</div>
+
+<%- include('partials/footer') %>

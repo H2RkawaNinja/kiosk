@@ -1,0 +1,154 @@
+<%- include('../partials/header', { title: 'Broker' }) %>
+
+<div class="admin-topbar">
+  <div class="section-title">&#9881; Broker &mdash; Kontrollzentrum</div>
+  <a href="/admin/chats" class="btn btn-neutral btn-sm">&#9656; Alle Chats</a>
+</div>
+
+<% if (soldReported.length > 0) { %>
+<div class="admin-section admin-section--alert">
+  <div class="admin-section-title" style="color:var(--amber);">&#9888; L&ouml;schungsanfragen (<%= soldReported.length %>)</div>
+  <table>
+    <thead><tr><th>ID</th><th>Titel</th><th>Kat.</th><th>Von</th><th>Datum</th><th></th></tr></thead>
+    <tbody>
+      <% soldReported.forEach(l => { %>
+        <tr>
+          <td>#<%= l.id %></td>
+          <td><a href="/listings/<%= l.id %>" style="color:var(--amber);text-decoration:none;"><%= l.title %></a></td>
+          <td><%= l.category %></td>
+          <td>#<%= l.user_id %></td>
+          <td><%= new Date(l.created_at).toLocaleDateString('de-DE') %></td>
+          <td>
+            <form action="/admin/listings/<%= l.id %>/delete" method="POST">
+              <button type="submit" class="btn btn-danger btn-sm">L&ouml;schen</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } %>
+
+<div class="admin-grid">
+
+  <div class="admin-section">
+    <div class="admin-section-title">Nutzer &mdash; Ausstehend (<%= pendingUsers.length %>)</div>
+    <% if (pendingUsers.length === 0) { %>
+      <div class="empty-state" style="padding:18px;">&mdash; Keine &mdash;</div>
+    <% } else { %>
+      <table>
+        <thead><tr><th>ID</th><th>Datum</th><th>Aktionen</th></tr></thead>
+        <tbody>
+          <% pendingUsers.forEach(u => { %>
+            <tr>
+              <td>#<%= u.id %></td>
+              <td><%= new Date(u.created_at).toLocaleDateString('de-DE') %></td>
+              <td>
+                <div class="action-buttons">
+                  <form action="/admin/users/<%= u.id %>/activate" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-success btn-sm">Freischalten</button>
+                  </form>
+                  <form action="/admin/users/<%= u.id %>/ban" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Sperren</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Inserate &mdash; Ausstehend (<%= pendingListings.length %>)</div>
+    <% if (pendingListings.length === 0) { %>
+      <div class="empty-state" style="padding:18px;">&mdash; Keine &mdash;</div>
+    <% } else { %>
+      <table>
+        <thead><tr><th>ID</th><th>Titel</th><th>Kat.</th><th>Von</th><th>Aktionen</th></tr></thead>
+        <tbody>
+          <% pendingListings.forEach(l => { %>
+            <tr>
+              <td>#<%= l.id %></td>
+              <td><%= l.title %></td>
+              <td><%= l.category %></td>
+              <td>#<%= l.user_id %></td>
+              <td>
+                <div class="action-buttons">
+                  <form action="/admin/listings/<%= l.id %>/approve" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-success btn-sm">OK</button>
+                  </form>
+                  <form action="/admin/listings/<%= l.id %>/reject" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Nein</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Alle Nutzer (<%= allUsers.length %>)</div>
+    <table>
+      <thead><tr><th>ID</th><th>Rolle</th><th>Status</th><th>Datum</th><th>Aktionen</th></tr></thead>
+      <tbody>
+        <% allUsers.forEach(u => { %>
+          <tr>
+            <td>#<%= u.id %></td>
+            <td><%= u.role %></td>
+            <td><span class="status-badge status-<%= u.status %>"><%= u.status %></span></td>
+            <td><%= new Date(u.created_at).toLocaleDateString('de-DE') %></td>
+            <td>
+              <div class="action-buttons">
+                <% if (u.status !== 'active' && u.role !== 'admin') { %>
+                  <form action="/admin/users/<%= u.id %>/activate" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-success btn-sm">Aktivieren</button>
+                  </form>
+                <% } %>
+                <% if (u.status !== 'banned' && u.role !== 'admin') { %>
+                  <form action="/admin/users/<%= u.id %>/ban" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Sperren</button>
+                  </form>
+                <% } %>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Inserate &mdash; Aktiv (<%= approvedListings.length %>)</div>
+    <% if (approvedListings.length === 0) { %>
+      <div class="empty-state" style="padding:18px;">&mdash; Keine &mdash;</div>
+    <% } else { %>
+      <table>
+        <thead><tr><th>ID</th><th>Titel</th><th>Von</th><th>Datum</th><th></th></tr></thead>
+        <tbody>
+          <% approvedListings.forEach(l => { %>
+            <tr>
+              <td>#<%= l.id %></td>
+              <td><a href="/listings/<%= l.id %>" style="color:var(--green-dim);text-decoration:none;"><%= l.title %></a></td>
+              <td>#<%= l.user_id %></td>
+              <td><%= new Date(l.created_at).toLocaleDateString('de-DE') %></td>
+              <td>
+                <form action="/admin/listings/<%= l.id %>/delete" method="POST">
+                  <button type="submit" class="btn btn-danger btn-sm">L&ouml;schen</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+</div>
+
+<%- include('../partials/footer') %>

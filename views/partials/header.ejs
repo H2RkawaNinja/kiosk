@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' — ' : '' %>KIOSK</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="site-wrapper">
+  <header class="site-header">
+    <div class="site-title">
+      <img src="/logo.png" alt="KIOSK" class="site-logo">
+      KIOSK
+    </div>
+    <nav class="site-nav">
+      <% if (session && session.userId) { %>
+        <a href="/">Angebote</a>
+        <% if (session.userStatus === 'active') { %>
+          <a href="/listings/new">+ Inserat</a>
+          <a href="/messages" class="nav-messages">
+            Nachrichten<% if (unreadCount > 0) { %><span class="nav-badge"><%= unreadCount %></span><% } %>
+          </a>
+        <% } %>
+        <% if (session.userRole === 'admin') { %>
+          <a href="/admin">&#9881; Broker</a>
+        <% } %>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      <% } else { %>
+        <a href="/login">Einloggen</a>
+        <a href="/register">Registrieren</a>
+      <% } %>
+    </nav>
+  </header>
+  <main>

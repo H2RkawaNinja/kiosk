@@ -1,0 +1,44 @@
+<%- include('../partials/header', { title: listing.title }) %>
+
+<div class="listing-detail">
+  <div class="listing-category-badge"><%= listing.category %></div>
+  <h1 class="listing-detail-title"><%= listing.title %></h1>
+
+  <div class="listing-detail-meta">
+    <div class="meta-item">
+      <span class="meta-label">Preis</span>
+      <span class="meta-value price"><%= listing.price %></span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Anbieter</span>
+      <span class="meta-value">#<%= listing.user_id %></span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Datum</span>
+      <span class="meta-value"><%= new Date(listing.created_at).toLocaleDateString('de-DE') %></span>
+    </div>
+  </div>
+
+  <div class="listing-description"><%= listing.description %></div>
+
+  <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+    <a href="/" class="btn btn-neutral btn-sm">&larr; Zurück zur Übersicht</a>
+    <% if (session.userId !== listing.user_id) { %>
+      <a href="/messages/<%= listing.id %>/<%= listing.user_id %>" class="btn btn-primary btn-sm">&#9656; Kontakt aufnehmen</a>
+    <% } else { %>
+      <span class="own-listing-hint">[ Dein eigenes Inserat ]</span>
+      <% if (listing.sold_reported) { %>
+        <span class="sold-reported-hint">&#10003; Verkauft gemeldet — Admin wird löschen</span>
+      <% } else { %>
+        <form method="POST" action="/listings/<%= listing.id %>/report-sold" style="display:inline">
+          <button type="submit" class="btn btn-warning btn-sm">Verkauft &mdash; Löschen beantragen</button>
+        </form>
+      <% } %>
+    <% } %>
+  </div>
+  <% if (reported) { %>
+    <div class="alert alert-success" style="margin-top:16px;">Meldung wurde an den Broker weitergeleitet.</div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
