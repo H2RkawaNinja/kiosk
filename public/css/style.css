@@ -1,4 +1,51 @@
-﻿/* =========================================================
+﻿/* Custom File Input */
+.custom-file-input {
+  display: inline-block;
+  position: relative;
+  color: var(--green);
+  background: var(--bg-input);
+  border: 1px solid var(--green-dim);
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 1.5px var(--green-glow);
+}
+.custom-file-input:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 2.5px var(--green-glow);
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Durchsuchen';
+  display: inline-block;
+  background: var(--green-dark);
+  color: var(--green);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 7px 18px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.custom-file-input:active::before {
+  background: var(--green-dim);
+}
+.custom-file-input:focus {
+  outline: 2px solid var(--green);
+}
+.custom-file-input::-ms-browse {
+  border: none;
+  background: none;
+}
+/* =========================================================
    KIOSK â€” Hacker Terminal Theme
    ========================================================= */
 
