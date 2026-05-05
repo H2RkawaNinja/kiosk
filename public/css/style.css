@@ -17,8 +17,16 @@
   border-color: var(--green);
   box-shadow: 0 0 0 2.5px var(--green-glow);
 }
+/* Hide native file button completely */
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
+  display: none;
+}
+.custom-file-input::-ms-browse {
+  display: none;
+}
+.custom-file-input::file-selector-button {
+  display: none;
 }
 .custom-file-input::before {
   content: 'Durchsuchen';
