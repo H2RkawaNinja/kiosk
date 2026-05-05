@@ -41,7 +41,6 @@ router.post('/new', isActive, upload.single('photo'), (req, res) => {
 
   if (!title || title.trim().length === 0) errors.push({ msg: 'Titel ist erforderlich.' });
   if (title && title.trim().length > 80) errors.push({ msg: 'Titel darf maximal 80 Zeichen haben.' });
-  if (!description || description.trim().length === 0) errors.push({ msg: 'Beschreibung ist erforderlich.' });
   if (description && description.trim().length > 1000) errors.push({ msg: 'Beschreibung darf maximal 1000 Zeichen haben.' });
   if (!price || price.trim().length === 0) errors.push({ msg: 'Preis ist erforderlich.' });
   if (!category || !CATEGORIES.includes(category)) errors.push({ msg: 'Ungültige Kategorie.' });
@@ -55,7 +54,14 @@ router.post('/new', isActive, upload.single('photo'), (req, res) => {
   db.prepare(`
     INSERT INTO listings (user_id, title, description, price, category, status, image_path)
     VALUES (?, ?, ?, ?, ?, 'pending', ?)
-  `).run(req.session.userId, title.trim(), description.trim(), price.trim(), category, imagePath);
+  `).run(
+    req.session.userId,
+    title.trim(),
+    description && description.trim().length > 0 ? description.trim() : null,
+    price.trim(),
+    category,
+    imagePath
+  );
 
   res.redirect('/?submitted=1');
 });
