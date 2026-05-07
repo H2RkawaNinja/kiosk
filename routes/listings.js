@@ -57,7 +57,7 @@ router.post('/new', isActive, upload.single('photo'), (req, res) => {
   `).run(
     req.session.userId,
     title.trim(),
-    description && description.trim().length > 0 ? description.trim() : null,
+    description && description.trim().length > 0 ? description.trim() : '',
     price.trim(),
     category,
     imagePath
