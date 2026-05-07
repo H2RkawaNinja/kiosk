@@ -78,7 +78,7 @@ router.post('/users/:id/delete', (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!isNaN(id)) {
     // Optional: zugehörige Nachrichten etc. löschen
-    db.prepare('DELETE FROM users WHERE id = ? AND role != "admin"').run(id);
+    db.prepare('DELETE FROM users WHERE id = ? AND role != ?').run(id, 'admin');
   }
   res.redirect('/admin');
 });
