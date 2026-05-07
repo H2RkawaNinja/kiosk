@@ -116,8 +116,8 @@
                     </form>
                   <% } %>
                   <% if (u.role !== 'admin') { %>
-                    <form action="/admin/users/<%= u.id %>/delete" method="POST" style="display:inline">
-                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?')">Löschen</button>
+                    <form action="/admin/users/<%= u.id %>/delete" method="POST" style="display:inline" class="delete-user-form">
+                      <button type="button" class="btn btn-danger btn-sm delete-user-btn" data-user-id="<%= u.id %>">Löschen</button>
                     </form>
                   <% } %>
               </div>
@@ -155,5 +155,39 @@
   </div>
 
 </div>
+
+<!-- Custom Delete Modal -->
+<div id="deleteModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-title">Wirklich löschen?</div>
+    <div class="modal-actions">
+      <button id="modalCancel" class="btn btn-neutral">Abbrechen</button>
+      <button id="modalConfirm" class="btn btn-danger">Löschen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let deleteForm = null;
+document.querySelectorAll('.delete-user-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    deleteForm = this.closest('form');
+    document.getElementById('deleteModal').style.display = 'block';
+  });
+});
+document.getElementById('modalCancel').onclick = function() {
+  document.getElementById('deleteModal').style.display = 'none';
+  deleteForm = null;
+};
+document.getElementById('modalConfirm').onclick = function() {
+  if(deleteForm) deleteForm.submit();
+};
+window.onclick = function(event) {
+  if(event.target === document.getElementById('deleteModal')) {
+    document.getElementById('deleteModal').style.display = 'none';
+    deleteForm = null;
+  }
+};
+</script>
 
 <%- include('../partials/footer') %>

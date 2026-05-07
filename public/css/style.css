@@ -1,4 +1,35 @@
-﻿/* Custom File Input */
+﻿/* Modal für Delete-Bestätigung */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.35);
+}
+.modal-content {
+  background: #222;
+  margin: 10% auto;
+  padding: 24px 32px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 2px 16px #000a;
+  text-align: center;
+}
+.modal-title {
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+  color: var(--red, #e74c3c);
+}
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+/* Custom File Input */
 .custom-file-input {
   display: inline-block;
   position: relative;
