@@ -40,7 +40,7 @@ router.post('/users/:id/ban', (req, res) => {
 router.post('/users/:id/reject', (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!isNaN(id)) {
-    db.prepare('DELETE FROM users WHERE id = ? AND status = "pending"').run(id);
+    db.prepare('DELETE FROM users WHERE id = ? AND status = ?').run(id, 'pending');
   }
   res.redirect('/admin');
 });
