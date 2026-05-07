@@ -49,9 +49,9 @@
                   <form action="/admin/users/<%= u.id %>/activate" method="POST" style="display:inline">
                     <button type="submit" class="btn btn-success btn-sm">Freischalten</button>
                   </form>
-                  <form action="/admin/users/<%= u.id %>/ban" method="POST" style="display:inline">
-                    <button type="submit" class="btn btn-danger btn-sm">Sperren</button>
-                  </form>
+                    <form action="/admin/users/<%= u.id %>/reject" method="POST" style="display:inline">
+                      <button type="submit" class="btn btn-danger btn-sm">Ablehnen</button>
+                    </form>
                 </div>
               </td>
             </tr>
@@ -105,16 +105,21 @@
             <td><%= new Date(u.created_at).toLocaleDateString('de-DE') %></td>
             <td>
               <div class="action-buttons">
-                <% if (u.status !== 'active' && u.role !== 'admin') { %>
-                  <form action="/admin/users/<%= u.id %>/activate" method="POST" style="display:inline">
-                    <button type="submit" class="btn btn-success btn-sm">Aktivieren</button>
-                  </form>
-                <% } %>
-                <% if (u.status !== 'banned' && u.role !== 'admin') { %>
-                  <form action="/admin/users/<%= u.id %>/ban" method="POST" style="display:inline">
-                    <button type="submit" class="btn btn-danger btn-sm">Sperren</button>
-                  </form>
-                <% } %>
+                  <% if (u.status !== 'active' && u.role !== 'admin') { %>
+                    <form action="/admin/users/<%= u.id %>/activate" method="POST" style="display:inline">
+                      <button type="submit" class="btn btn-success btn-sm">Aktivieren</button>
+                    </form>
+                  <% } %>
+                  <% if (u.status !== 'banned' && u.role !== 'admin') { %>
+                    <form action="/admin/users/<%= u.id %>/ban" method="POST" style="display:inline">
+                      <button type="submit" class="btn btn-danger btn-sm">Sperren</button>
+                    </form>
+                  <% } %>
+                  <% if (u.role !== 'admin') { %>
+                    <form action="/admin/users/<%= u.id %>/delete" method="POST" style="display:inline">
+                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?')">Löschen</button>
+                    </form>
+                  <% } %>
               </div>
             </td>
           </tr>

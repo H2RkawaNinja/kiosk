@@ -36,6 +36,15 @@ router.post('/users/:id/ban', (req, res) => {
   res.redirect('/admin');
 });
 
+// POST /admin/users/:id/reject (pending user ablehnen)
+router.post('/users/:id/reject', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!isNaN(id)) {
+    db.prepare('DELETE FROM users WHERE id = ? AND status = "pending"').run(id);
+  }
+  res.redirect('/admin');
+});
+
 // POST /admin/listings/:id/approve
 router.post('/listings/:id/approve', (req, res) => {
   const id = parseInt(req.params.id, 10);
@@ -60,6 +69,16 @@ router.post('/listings/:id/delete', (req, res) => {
   if (!isNaN(id)) {
     db.prepare('DELETE FROM messages WHERE listing_id = ?').run(id);
     db.prepare('DELETE FROM listings WHERE id = ?').run(id);
+  }
+  res.redirect('/admin');
+});
+
+// POST /admin/users/:id/delete (bestehenden Benutzer löschen)
+router.post('/users/:id/delete', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!isNaN(id)) {
+    // Optional: zugehörige Nachrichten etc. löschen
+    db.prepare('DELETE FROM users WHERE id = ? AND role != "admin"').run(id);
   }
   res.redirect('/admin');
 });
