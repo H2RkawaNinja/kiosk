@@ -1,4 +1,23 @@
-﻿/* iPad Look & Feel */
+﻿/* iPad Home Button */
+.ipad-home {
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 68px;
+  background: #222;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px #0007, 0 0 0 6px #444 inset;
+  border: 4px solid #333;
+  z-index: 10;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* iPad Look & Feel */
 
 .ipad-frame {
   background: var(--bg-card);
