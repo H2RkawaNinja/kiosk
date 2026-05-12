@@ -19,109 +19,6 @@
   box-sizing: border-box;
 }
 
-  /* Light theme with turquoise accent */
-  :root {
-    --bg:         #e8f8f6;
-    --bg-card:    #ffffff;
-    --bg-input:   #f2fcfa;
-    --green:      #1de9b6;
-    --green-dim:  #13bfa6;
-    --green-dark: #0a3d3a;
-    --green-glow: rgba(29,233,182,0.13);
-    --text:       #1a3a1a;
-    --text-dim:   #1de9b6cc;
-    --text-dark:  #0a3d3a;
-    --border:     #b2e6de;
-    --border-mid: #7be2d2;
-    --red:        #ff4444;
-    --red-dim:    #882020;
-    --amber:      #00bfae;
-    --amber-dim:  #008c7a;
-    --scan-line:  rgba(29,233,182,0.01);
-  }
-.ipad-notch {
-  html { font-size: 15px; }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-    line-height: 1.7;
-    min-height: 100vh;
-    background-image: none;
-  }
-  left: 50%;
-  transform: translateX(-50%);
-  width: 68px;
-  height: 68px;
-  background: #222;
-  border-radius: 50%;
-  box-shadow: 0 2px 16px #0007, 0 0 0 6px #444 inset;
-  border: 4px solid #333;
-  z-index: 2;
-  cursor: pointer;
-  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Fixed input style block, moved to main selector above */
-  .ipad-home {
-    position: absolute;
-    left: 50%;
-    bottom: 38px;
-    transform: translateX(-50%);
-    width: 68px;
-    height: 68px;
-    background: #222;
-    border-radius: 50%;
-    box-shadow: 0 2px 16px #0007, 0 0 0 6px #444 inset;
-    border: 4px solid #333;
-    z-index: 10;
-    cursor: pointer;
-    transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  border: 2px solid var(--border-mid);
-  box-shadow: 0 0 40px var(--green-glow);
-  border-radius: 22px;
-  margin: 0 auto 0 auto;
-  max-width: 400px;
-  padding: 38px 32px;
-}
-
-/* Modal für Delete-Bestätigung */
-.modal-content {
-  background: #222;
-  margin: 10% auto;
-/* .form-container already defined globally, removed duplicate */
-  padding: 24px 32px;
-  border-radius: 8px;
-  width: 320px;
-  box-shadow: 0 2px 16px #000a;
-  text-align: center;
-}
-.modal-title {
-  font-size: 1.2rem;
-  margin-bottom: 18px;
-  color: var(--red, #e74c3c);
-}
-/* .site-title already defined globally, removed duplicate */
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-}
-/* Custom File Input */
-  .listing-title {
-    color: var(--text-dark);
-    font-size: 1.05rem;
-    margin-bottom: 8px;
-    letter-spacing: 0.03em;
-  }
 .custom-file-input {
   display: inline-block;
   position: relative;
@@ -129,19 +26,20 @@
   background: var(--bg-input);
   border: 1px solid var(--green-dim);
   padding: 8px 14px;
-  .listing-detail-title {
-    color: var(--green);
-    font-size: 1.4rem;
-    letter-spacing: 0.06em;
-    margin-bottom: 18px;
-    text-shadow: 0 0 8px #1de9b655;
-  }
   border-radius: 5px;
   font-family: inherit;
   font-size: 1rem;
   cursor: pointer;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 0 0 1.5px var(--green-glow);
+}
+
+.listing-detail-title {
+  color: var(--green);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 18px;
+  text-shadow: 0 0 8px #1de9b655;
 }
 .custom-file-input:hover {
   border-color: var(--green);
