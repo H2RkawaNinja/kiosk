@@ -10,18 +10,30 @@
   <div class="ipad-frame">
     <div class="ipad-notch"></div>
 
-    <header class="site-header" style="margin-bottom:32px;">
-      <div class="site-title">
-        <img src="/logo.png" alt="KIOSK" class="site-logo">
-        KIOSK
-      </div>
-      <nav class="site-nav">
-        <a href="/">Angebote</a>
-        <a href="/login">Einloggen</a>
-        <a href="/register">Registrieren</a>
-        <a href="/admin">&#9881; Broker</a>
-      </nav>
-    </header>
+    <% if (session && session.userId) { %>
+      <header class="site-header" style="margin-bottom:32px;">
+        <div class="site-title">
+          <img src="/logo.png" alt="KIOSK" class="site-logo">
+          KIOSK
+        </div>
+        <nav class="site-nav">
+          <a href="/">Angebote</a>
+          <% if (session.userStatus === 'active') { %>
+            <a href="/listings/new">+ Inserat</a>
+            <a href="/messages" class="nav-messages">
+              Nachrichten<% if (typeof unreadCount !== 'undefined' && unreadCount > 0) { %><span class="nav-badge"><%= unreadCount %></span><% } %>
+            </a>
+          <% } %>
+          <% if (session.userRole === 'admin') { %>
+            <a href="/admin">&#9881; Broker</a>
+          <% } %>
+          <form action="/logout" method="POST" style="display:inline">
+            <button type="submit" class="nav-btn">Verlassen</button>
+          </form>
+          <span class="user-indicator">ID #<%= session.userId %></span>
+        </nav>
+      </header>
+    <% } %>
 
     <div class="form-container">
       <div class="form-title">Zugang</div>
