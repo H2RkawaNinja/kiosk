@@ -65,18 +65,7 @@
   justify-content: center;
 }
 
-    width: 100%;
-    background: var(--bg-input);
-    border: 1px solid var(--border-mid);
-    color: var(--text);
-    padding: 11px 13px;
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-    font-size: 15px;
-    outline: none;
-    border-radius: 7px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    caret-color: var(--green);
-  }
+/* Fixed input style block, moved to main selector above */
   .ipad-home:hover {
     background: #333;
     box-shadow: 0 4px 24px #1de9b6cc, 0 0 0 8px #1de9b633 inset;
@@ -90,52 +79,15 @@
   }
 
   /* Optional: Home-Button Kreis in der Mitte */
-  .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-    font-size: 0.93rem;
-    text-transform: uppercase;
-    letter-spacing: 0.11em;
-    text-decoration: none;
-    border-radius: 7px;
-    transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
-    white-space: nowrap;
-  }
-  .ipad-home::after {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid #444;
-    background: #222;
-    box-shadow: 0 0 8px #1de9b633;
-  }
-  .btn-primary {
-    background: var(--green);
-    color: #fff;
-    border: 1px solid var(--green-dim);
-  }
-  .btn-primary:hover {
-    background: #13bfa6;
-    color: #fff;
-    box-shadow: 0 0 12px rgba(0,224,96,0.13);
-  }
+/* .btn style is already defined globally, removed duplicate */
+/* .ipad-home::after already defined above, removed duplicate */
+/* .btn-primary styles already defined globally, removed duplicate */
 .ipad-frame .form-container {
   background: var(--bg-card);
   border: 2px solid var(--border-mid);
   box-shadow: 0 0 40px var(--green-glow);
   border-radius: 22px;
   margin: 0 auto 0 auto;
-  .btn-neutral {
-    background: #f2fcfa;
-    color: var(--text-dark);
-    border: 1px solid var(--border-mid);
-  }
-  .btn-neutral:hover { color: var(--green); border-color: var(--green-dim); background: #e0f7f3; }
   max-width: 400px;
   padding: 38px 32px;
 }
@@ -144,14 +96,7 @@
 .modal-content {
   background: #222;
   margin: 10% auto;
-  .form-container {
-    max-width: 420px;
-    margin: 40px auto;
-    border: 1px solid var(--border-mid);
-    padding: 32px 28px;
-    background: var(--bg-card);
-    box-shadow: 0 0 30px rgba(29,233,182,0.07);
-  }
+/* .form-container already defined globally, removed duplicate */
   padding: 24px 32px;
   border-radius: 8px;
   width: 320px;
@@ -163,17 +108,7 @@
   margin-bottom: 18px;
   color: var(--red, #e74c3c);
 }
-  .site-title {
-    font-size: 1.6rem;
-    color: var(--green);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px #1de9b655;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+/* .site-title already defined globally, removed duplicate */
 .modal-actions {
   display: flex;
   justify-content: space-between;
