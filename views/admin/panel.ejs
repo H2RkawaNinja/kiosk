@@ -1,9 +1,37 @@
-<%- include('../partials/header', { title: 'Broker' }) %>
 
-<div class="admin-topbar">
-  <div class="section-title">&#9881; Broker &mdash; Kontrollzentrum</div>
-  <a href="/admin/chats" class="btn btn-neutral btn-sm">&#9656; Alle Chats</a>
-</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIOSK Broker</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
+
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">Admin</span>
+      </nav>
+    </header>
+
+    <div class="admin-topbar">
+      <div class="section-title">&#9881; Broker &mdash; Kontrollzentrum</div>
+      <a href="/admin/chats" class="btn btn-neutral btn-sm">&#9656; Alle Chats</a>
+    </div>
 
 <% if (soldReported.length > 0) { %>
 <div class="admin-section admin-section--alert">
