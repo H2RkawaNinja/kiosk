@@ -98,20 +98,20 @@
   --bg:         #0a0f0a;
   --bg-card:    #0d130d;
   --bg-input:   #080d08;
-  --green:      #00e060;
-  --green-dim:  #007a35;
-  --green-dark: #003a18;
-  --green-glow: rgba(0,224,96,0.18);
-  --text:       #a0d4a0;
-  --text-dim:   #3a7a3a;
-  --text-dark:  #1a3a1a;
-  --border:     #0f2a0f;
-  --border-mid: #1a4a1a;
+  --green:      #1de9b6;
+  --green-dim:  #13bfa6;
+  --green-dark: #0a3d3a;
+  --green-glow: rgba(29,233,182,0.18);
+  --text:       #a0e9e0;
+  --text-dim:   #1de9b6cc;
+  --text-dark:  #0a3d3a;
+  --border:     #0f2a1a;
+  --border-mid: #1a4a3a;
   --red:        #ff4444;
   --red-dim:    #882020;
-  --amber:      #ddbb00;
-  --amber-dim:  #665500;
-  --scan-line:  rgba(0,255,80,0.03);
+  --amber:      #00e9dd;
+  --amber-dim:  #008c7a;
+  --scan-line:  rgba(29,233,182,0.03);
 }
 
 html { font-size: 14px; }
@@ -119,7 +119,7 @@ html { font-size: 14px; }
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Fira Mono', 'Courier New', Courier, monospace;
   line-height: 1.65;
   min-height: 100vh;
   /* Scanline-Effekt */
