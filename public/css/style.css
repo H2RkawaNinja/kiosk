@@ -1,4 +1,60 @@
-﻿/* Modal für Delete-Bestätigung */
+﻿/* iPad Look & Feel */
+.ipad-frame {
+  background: var(--bg-card);
+  border-radius: 38px;
+  border: 4px solid #222;
+  box-shadow: 0 8px 48px 0 #000a, 0 1.5px 0 #fff2 inset;
+  padding: 32px 18px 60px 18px;
+  max-width: 900px;
+  margin: 40px auto 32px auto;
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Notch-Attrappe */
+.ipad-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 12px;
+  background: #222;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 2px 8px #0007;
+  z-index: 2;
+}
+
+/* Home-Button-Attrappe */
+.ipad-home {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  background: #222;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0007, 0 0 0 3px #444 inset;
+  border: 2px solid #333;
+  z-index: 2;
+}
+
+/* Optional: Terminal-Inhalt anpassen, damit er im iPad-Rahmen gut aussieht */
+.terminal {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+  max-width: unset;
+  min-height: 400px;
+  margin: 0;
+}
+/* Modal für Delete-Bestätigung */
 .modal {
   display: none;
   position: fixed;
