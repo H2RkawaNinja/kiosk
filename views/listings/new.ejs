@@ -1,53 +1,85 @@
-<%- include('../partials/header', { title: 'Neues Inserat' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neues Inserat</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="form-container" style="max-width:620px">
-  <div class="form-title">Neues Inserat einreichen</div>
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <% if (session && session.userId) { %>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      </nav>
+      <% } %>
+    </header>
 
-  <% if (errors && errors.length > 0) { %>
-    <% errors.forEach(e => { %>
-      <div class="alert alert-error"><%= e.msg %></div>
-    <% }) %>
-  <% } %>
+    <div class="form-container" style="max-width:620px">
+      <div class="form-title">Neues Inserat einreichen</div>
 
-  <form method="POST" action="/listings/new">
-    <div class="form-group">
-      <label>Titel <span class="label-hint">(max. 80 Zeichen)</span></label>
-      <input type="text" name="title" maxlength="80" required
-             value="<%= old && old.title ? old.title : '' %>">
-    </div>
-
-    <div class="form-group">
-      <label>Kategorie</label>
-      <select name="category" required>
-        <option value="">— Wählen —</option>
-        <% ['WAFFEN','SUBSTANZEN','DOKUMENTE','DIENSTLEISTUNGEN','SONSTIGES'].forEach(cat => { %>
-          <option value="<%= cat %>" <%= (old && old.category === cat) ? 'selected' : '' %>><%= cat %></option>
+      <% if (errors && errors.length > 0) { %>
+        <% errors.forEach(e => { %>
+          <div class="alert alert-error"><%= e.msg %></div>
         <% }) %>
-      </select>
+      <% } %>
+
+      <form method="POST" action="/listings/new">
+        <div class="form-group">
+          <label>Titel <span class="label-hint">(max. 80 Zeichen)</span></label>
+          <input type="text" name="title" maxlength="80" required
+                 value="<%= old && old.title ? old.title : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Kategorie</label>
+          <select name="category" required>
+            <option value="">— Wählen —</option>
+            <% ['WAFFEN','SUBSTANZEN','DOKUMENTE','DIENSTLEISTUNGEN','SONSTIGES'].forEach(cat => { %>
+              <option value="<%= cat %>" <%= (old && old.category === cat) ? 'selected' : '' %>><%= cat %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preis</label>
+          <input type="text" name="price" maxlength="40"
+                 placeholder="z.B.  5000  oder  Verhandlungsbasis" required
+                 value="<%= old && old.price ? old.price : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Beschreibung <span class="label-hint">(optional, max. 1000 Zeichen)</span></label>
+          <textarea name="description" maxlength="1000" rows="7"><%= old && old.description ? old.description : '' %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Bild hinzufügen <span class="label-hint">(optional, jpg/png/webp/gif, max. 5MB)</span></label>
+          <input type="file" name="photo" accept="image/*" class="custom-file-input">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Inserat einreichen</button>
+      </form>
+
+      <p style="margin-top:14px;font-size:0.72rem;color:#1a3a1a;text-align:center;letter-spacing:0.08em;">
+        Inserate werden vor Veröffentlichung geprüft.
+      </p>
     </div>
 
-    <div class="form-group">
-      <label>Preis</label>
-      <input type="text" name="price" maxlength="40"
-             placeholder="z.B.  5000  oder  Verhandlungsbasis" required
-             value="<%= old && old.price ? old.price : '' %>">
-    </div>
-
-    <div class="form-group">
-      <label>Beschreibung <span class="label-hint">(optional, max. 1000 Zeichen)</span></label>
-      <textarea name="description" maxlength="1000" rows="7"><%= old && old.description ? old.description : '' %></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Bild hinzufügen <span class="label-hint">(optional, jpg/png/webp/gif, max. 5MB)</span></label>
-      <input type="file" name="photo" accept="image/*" class="custom-file-input">
-    </div>
-    <button type="submit" class="btn btn-primary btn-block">Inserat einreichen</button>
-  </form>
-
-  <p style="margin-top:14px;font-size:0.72rem;color:#1a3a1a;text-align:center;letter-spacing:0.08em;">
-    Inserate werden vor Veröffentlichung geprüft.
-  </p>
-</div>
-
-<%- include('../partials/footer') %>
+    <div class="ipad-home"></div>
+  </div>
+</body>
+</html>

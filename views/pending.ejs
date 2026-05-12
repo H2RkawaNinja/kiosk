@@ -1,17 +1,49 @@
-<%- include('partials/header', { title: 'Ausstehend' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ausstehend</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="pending-box">
-  <div class="pending-icon">&#9201;</div>
-  <div class="pending-title">Zugang ausstehend</div>
-  <p class="pending-text">
-    Dein Zugangscode wurde erfolgreich registriert.<br><br>
-    Dein Account wartet auf Freischaltung durch einen Broker.<br><br>
-    Sobald die Zugangszahlung bestätigt wurde, wirst du freigeschaltet.<br><br>
-    <span class="pending-hint">— Wende dich an einen Broker für Details. —</span>
-  </p>
-  <form action="/logout" method="POST" style="margin-top:25px;">
-    <button type="submit" class="btn btn-neutral btn-sm">Verlassen</button>
-  </form>
-</div>
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <% if (session && session.userId) { %>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      </nav>
+      <% } %>
+    </header>
 
-<%- include('partials/footer') %>
+    <div class="pending-box">
+      <div class="pending-icon">&#9201;</div>
+      <div class="pending-title">Zugang ausstehend</div>
+      <p class="pending-text">
+        Dein Zugangscode wurde erfolgreich registriert.<br><br>
+        Dein Account wartet auf Freischaltung durch einen Broker.<br><br>
+        Sobald die Zugangszahlung bestätigt wurde, wirst du freigeschaltet.<br><br>
+        <span class="pending-hint">— Wende dich an einen Broker für Details. —</span>
+      </p>
+      <form action="/logout" method="POST" style="margin-top:25px;">
+        <button type="submit" class="btn btn-neutral btn-sm">Verlassen</button>
+      </form>
+    </div>
+
+    <div class="ipad-home"></div>
+  </div>
+</body>
+</html>

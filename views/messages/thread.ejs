@@ -1,51 +1,83 @@
-<%- include('../partials/header', { title: 'Chat' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="thread-header">
-  <div>
-    <div class="thread-listing-title">
-      <a href="/listings/<%= listing.id %>"><%= listing.title %></a>
-    </div>
-    <% if (typeof adminView !== 'undefined' && adminView) { %>
-      <div class="thread-meta">[BROKER] #<%= adminBackUser1 %> &harr; #<%= otherUserId %></div>
-    <% } else { %>
-      <div class="thread-meta">Gespräch mit #<%= otherUserId %></div>
-    <% } %>
-  </div>
-  <% if (typeof adminView !== 'undefined' && adminView) { %>
-    <a href="/admin/chats" class="btn btn-neutral btn-sm">&larr; Alle Chats</a>
-  <% } else { %>
-    <a href="/messages" class="btn btn-neutral btn-sm">&larr; Posteingang</a>
-  <% } %>
-</div>
-
-<div class="thread-box">
-  <% if (msgs.length === 0) { %>
-    <div class="empty-state" style="padding:40px 20px;">— Noch keine Nachrichten —</div>
-  <% } else { %>
-    <% msgs.forEach(msg => { %>
-      <% const mine = msg.from_user_id === session.userId; %>
-      <div class="msg-row <%= mine ? 'msg-row--mine' : 'msg-row--theirs' %>">
-        <div class="msg-bubble">
-          <div class="msg-content"><%= msg.content %></div>
-          <div class="msg-meta">
-            #<%= msg.from_user_id %> &nbsp;&bull;&nbsp; <%= new Date(msg.created_at).toLocaleString('de-DE', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) %>
-          </div>
-        </div>
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
       </div>
-    <% }) %>
-  <% } %>
-</div>
+      <% if (session && session.userId) { %>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      </nav>
+      <% } %>
+    </header>
 
-<% if (typeof adminView === 'undefined' || !adminView) { %>
-  <% if (error) { %>
-    <div class="alert alert-error" style="margin-top:14px;"><%= error %></div>
-  <% } %>
-  <form class="thread-form" method="POST" action="/messages/<%= listing.id %>/<%= otherUserId %>">
-    <textarea name="content" maxlength="1000" rows="3" placeholder="Nachricht schreiben..." required autofocus></textarea>
-    <button type="submit" class="btn btn-primary">Senden</button>
-  </form>
-<% } else { %>
-  <div class="own-listing-hint" style="margin-top:14px;">[ Nur-Lesen — Admin-Ansicht ]</div>
-<% } %>
+    <div class="thread-header">
+      <div>
+        <div class="thread-listing-title">
+          <a href="/listings/<%= listing.id %>"><%= listing.title %></a>
+        </div>
+        <% if (typeof adminView !== 'undefined' && adminView) { %>
+          <div class="thread-meta">[BROKER] #<%= adminBackUser1 %> &harr; #<%= otherUserId %></div>
+        <% } else { %>
+          <div class="thread-meta">Gespräch mit #<%= otherUserId %></div>
+        <% } %>
+      </div>
+      <% if (typeof adminView !== 'undefined' && adminView) { %>
+        <a href="/admin/chats" class="btn btn-neutral btn-sm">&larr; Alle Chats</a>
+      <% } else { %>
+        <a href="/messages" class="btn btn-neutral btn-sm">&larr; Posteingang</a>
+      <% } %>
+    </div>
 
-<%- include('../partials/footer') %>
+    <div class="thread-box">
+      <% if (msgs.length === 0) { %>
+        <div class="empty-state" style="padding:40px 20px;">— Noch keine Nachrichten —</div>
+      <% } else { %>
+        <% msgs.forEach(msg => { %>
+          <% const mine = msg.from_user_id === session.userId; %>
+          <div class="msg-row <%= mine ? 'msg-row--mine' : 'msg-row--theirs' %>">
+            <div class="msg-bubble">
+              <div class="msg-content"><%= msg.content %></div>
+              <div class="msg-meta">
+                #<%= msg.from_user_id %> &nbsp;&bull;&nbsp; <%= new Date(msg.created_at).toLocaleString('de-DE', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <% if (typeof adminView === 'undefined' || !adminView) { %>
+      <% if (error) { %>
+        <div class="alert alert-error" style="margin-top:14px;"><%= error %></div>
+      <% } %>
+      <form class="thread-form" method="POST" action="/messages/<%= listing.id %>/<%= otherUserId %>">
+        <textarea name="content" maxlength="1000" rows="3" placeholder="Nachricht schreiben..." required autofocus></textarea>
+        <button type="submit" class="btn btn-primary">Senden</button>
+      </form>
+    <% } else { %>
+      <div class="own-listing-hint" style="margin-top:14px;">[ Nur-Lesen — Admin-Ansicht ]</div>
+    <% } %>
+
+    <div class="ipad-home"></div>
+  </div>
+</body>
+</html>

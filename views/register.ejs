@@ -1,40 +1,72 @@
-<%- include('partials/header', { title: 'Registrieren' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrieren</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<% if (generatedCode) { %>
-  <div class="form-container" style="max-width:500px">
-    <div class="form-title">Registrierung erfolgreich</div>
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <% if (session && session.userId) { %>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      </nav>
+      <% } %>
+    </header>
 
-    <div class="code-box">
-      <div class="code-label">[ DEIN ZUGANGSCODE ]</div>
-      <div class="code-display"><%= generatedCode %></div>
-      <div class="code-warning">&#9888;&nbsp; Dieser Code wird NUR EINMAL angezeigt. Sichere ihn jetzt. &nbsp;&#9888;</div>
-    </div>
+    <% if (generatedCode) { %>
+      <div class="form-container" style="max-width:500px">
+        <div class="form-title">Registrierung erfolgreich</div>
 
-    <div class="alert alert-warning">
-      Verlierst du diesen Code, ist dein Account unwiederbringlich verloren.<br><br>
-      Dein Account muss von einem Broker freigeschaltet werden.
-      Wende dich nach der Zahlung an einen Broker.
-    </div>
+        <div class="code-box">
+          <div class="code-label">[ DEIN ZUGANGSCODE ]</div>
+          <div class="code-display"><%= generatedCode %></div>
+          <div class="code-warning">&#9888;&nbsp; Dieser Code wird NUR EINMAL angezeigt. Sichere ihn jetzt. &nbsp;&#9888;</div>
+        </div>
 
-    <a href="/login" class="btn btn-primary btn-block" style="margin-top:20px;">Zum Login</a>
+        <div class="alert alert-warning">
+          Verlierst du diesen Code, ist dein Account unwiederbringlich verloren.<br><br>
+          Dein Account muss von einem Broker freigeschaltet werden.
+          Wende dich nach der Zahlung an einen Broker.
+        </div>
+
+        <a href="/login" class="btn btn-primary btn-block" style="margin-top:20px;">Zum Login</a>
+      </div>
+
+    <% } else { %>
+      <div class="form-container">
+        <div class="form-title">Registrieren</div>
+
+        <div class="alert alert-warning">
+          Nach der Registrierung erhältst du einen einmaligen Zugangscode.
+          Der Zugang zu diesem Marktplatz erfordert eine Zahlung &mdash;
+          wende dich nach der Registrierung an einen Broker.
+        </div>
+
+        <form method="POST" action="/register">
+          <button type="submit" class="btn btn-primary btn-block">Code generieren</button>
+        </form>
+
+        <p class="form-footer-link">Bereits registriert? <a href="/login">Login</a></p>
+      </div>
+    <% } %>
+
+    <div class="ipad-home"></div>
   </div>
-
-<% } else { %>
-  <div class="form-container">
-    <div class="form-title">Registrieren</div>
-
-    <div class="alert alert-warning">
-      Nach der Registrierung erhältst du einen einmaligen Zugangscode.
-      Der Zugang zu diesem Marktplatz erfordert eine Zahlung &mdash;
-      wende dich nach der Registrierung an einen Broker.
-    </div>
-
-    <form method="POST" action="/register">
-      <button type="submit" class="btn btn-primary btn-block">Code generieren</button>
-    </form>
-
-    <p class="form-footer-link">Bereits registriert? <a href="/login">Login</a></p>
-  </div>
-<% } %>
-
-<%- include('partials/footer') %>
+</body>
+</html>

@@ -1,28 +1,60 @@
-<%- include('../partials/header', { title: 'Broker — Alle Chats' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broker — Alle Chats</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="section-title" style="margin-bottom:8px;">&#9881; Alle Chats</div>
-<div style="margin-bottom:24px;">
-  <a href="/admin" class="btn btn-neutral btn-sm">&larr; Broker-Panel</a>
-</div>
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <% if (session && session.userId) { %>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <span class="user-indicator">ID #<%= session.userId %></span>
+      </nav>
+      <% } %>
+    </header>
 
-<% if (conversations.length === 0) { %>
-  <div class="empty-state">— Noch keine Nachrichten vorhanden —</div>
-<% } else { %>
-  <div class="inbox-list">
-    <% conversations.forEach(conv => { %>
-      <a href="/admin/chats/<%= conv.listing_id %>/<%= conv.user1 %>/<%= conv.user2 %>" class="inbox-item">
-        <div class="inbox-item-left">
-          <div class="inbox-listing-title"><%= conv.listing_title %></div>
-          <div class="inbox-preview"><%= conv.preview.length > 80 ? conv.preview.substring(0, 80) + '…' : conv.preview %></div>
-        </div>
-        <div class="inbox-item-right">
-          <div class="inbox-other">#<%= conv.user1 %> &harr; #<%= conv.user2 %></div>
-          <div class="inbox-badge" style="background:var(--text-dim);color:var(--bg)"><%= conv.msg_count %> Msg</div>
-          <div class="inbox-date"><%= conv.last_at ? new Date(conv.last_at).toLocaleDateString('de-DE') : '' %></div>
-        </div>
-      </a>
-    <% }) %>
+    <div class="section-title" style="margin-bottom:8px;">&#9881; Alle Chats</div>
+    <div style="margin-bottom:24px;">
+      <a href="/admin" class="btn btn-neutral btn-sm">&larr; Broker-Panel</a>
+    </div>
+
+    <% if (conversations.length === 0) { %>
+      <div class="empty-state">— Noch keine Nachrichten vorhanden —</div>
+    <% } else { %>
+      <div class="inbox-list">
+        <% conversations.forEach(conv => { %>
+          <a href="/admin/chats/<%= conv.listing_id %>/<%= conv.user1 %>/<%= conv.user2 %>" class="inbox-item">
+            <div class="inbox-item-left">
+              <div class="inbox-listing-title"><%= conv.listing_title %></div>
+              <div class="inbox-preview"><%= conv.preview.length > 80 ? conv.preview.substring(0, 80) + '…' : conv.preview %></div>
+            </div>
+            <div class="inbox-item-right">
+              <div class="inbox-other">#<%= conv.user1 %> &harr; #<%= conv.user2 %></div>
+              <div class="inbox-badge" style="background:var(--text-dim);color:var(--bg)"><%= conv.msg_count %> Msg</div>
+              <div class="inbox-date"><%= conv.last_at ? new Date(conv.last_at).toLocaleDateString('de-DE') : '' %></div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <div class="ipad-home"></div>
   </div>
-<% } %>
-
-<%- include('../partials/footer') %>
+</body>
+</html>
