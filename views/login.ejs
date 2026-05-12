@@ -35,8 +35,15 @@
       </header>
     <% } %>
 
-    <div class="form-container">
-      <div class="form-title">Zugang</div>
+
+    <div class="form-container login-card">
+      <div class="login-icon">
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="27" cy="27" r="26" stroke="#1de9b6" stroke-width="2" fill="#0a3d3a22"/>
+          <path d="M27 34c-4.5 0-8-3.5-8-8s3.5-8 8-8 8 3.5 8 8-3.5 8-8 8zm0 3c5.5 0 12 2.7 12 4v2H15v-2c0-1.3 6.5-4 12-4z" fill="#1de9b6"/>
+        </svg>
+      </div>
+      <div class="form-title" style="font-size:1.5rem; margin-bottom:18px; color:var(--green); letter-spacing:0.08em;">Willkommen</div>
 
       <% if (banned) { %>
         <div class="alert alert-error">Zugang dauerhaft verweigert.</div>
@@ -46,24 +53,23 @@
         <div class="alert alert-error"><%= error %></div>
       <% } %>
 
-      <form method="POST" action="/login" autocomplete="off">
-        <div class="form-group">
-          <label>Zugangscode (8 Ziffern)</label>
-          <input type="text"
-                 name="code"
-                 maxlength="8"
-                 placeholder="&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;"
-                 inputmode="numeric"
-                 pattern="\d{8}"
-                 autocomplete="off"
-                 autofocus>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Eintreten</button>
+      <form method="POST" action="/login" autocomplete="off" class="login-form">
+        <label for="code" class="login-label">Zugangscode</label>
+        <input type="text"
+               id="code"
+               name="code"
+               maxlength="8"
+               placeholder="8-stelliger Code"
+               inputmode="numeric"
+               pattern="\d{8}"
+               autocomplete="off"
+               class="login-input"
+               required
+               autofocus>
+        <button type="submit" class="btn btn-primary btn-block login-btn">Eintreten</button>
       </form>
 
-      <p class="form-footer-link">
-        Kein Code? <a href="/register">Registrieren</a>
-      </p>
+      <div class="login-hint">Kein Code? <a href="/register">Jetzt registrieren</a></div>
     </div>
 
     <!-- iPad Home Button: only one instance at the bottom of the frame -->
