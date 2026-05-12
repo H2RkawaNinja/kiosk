@@ -81,21 +81,17 @@
     background: #222;
     box-shadow: 0 0 8px #1de9b633;
   }
-  min-height: 400px;
-  margin: 0;
+.ipad-frame .form-container {
+  background: var(--bg-card);
+  border: 2px solid var(--border-mid);
+  box-shadow: 0 0 40px var(--green-glow);
+  border-radius: 22px;
+  margin: 0 auto 0 auto;
+  max-width: 400px;
+  padding: 38px 32px;
 }
+
 /* Modal für Delete-Bestätigung */
-    background: var(--bg-card);
-    border: 2px solid var(--border-mid);
-    box-shadow: 0 0 40px var(--green-glow);
-    border-radius: 22px;
-    margin: 0 auto 0 auto;
-    max-width: 400px;
-    padding: 38px 32px;
-  height: 100vh;
-  overflow: auto;
-  background: rgba(0,0,0,0.35);
-}
 .modal-content {
   background: #222;
   margin: 10% auto;
