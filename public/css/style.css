@@ -6,7 +6,7 @@
   border: 7px solid #222;
   box-shadow: 0 16px 80px 0 #000a, 0 2.5px 0 #fff2 inset;
   padding: 70px 48px 110px 48px;
-  max-width: 700px;
+  max-width: 980px;
   width: 99vw;
   margin: 70px auto 50px auto;
   position: relative;
@@ -14,6 +14,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .ipad-notch {
