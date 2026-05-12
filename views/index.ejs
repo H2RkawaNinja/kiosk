@@ -11,6 +11,25 @@
   <div class="ipad-frame">
     <div class="ipad-notch"></div>
 
+    <header class="site-header" style="margin-bottom:32px;">
+      <div class="site-title">
+        <img src="/logo.png" alt="KIOSK" class="site-logo">
+        KIOSK
+      </div>
+      <nav class="site-nav">
+        <a href="/">Angebote</a>
+        <a href="/listings/new">+ Inserat</a>
+        <a href="/messages" class="nav-messages">Nachrichten</a>
+        <a href="/admin">&#9881; Broker</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="nav-btn">Verlassen</button>
+        </form>
+        <% if (session && session.userId) { %>
+          <span class="user-indicator">ID #<%= session.userId %></span>
+        <% } %>
+      </nav>
+    </header>
+
     <% if (submitted) { %>
       <div class="alert alert-success">Inserat eingereicht. Wird nach Prüfung freigeschaltet.</div>
     <% } %>
