@@ -1,34 +1,47 @@
-<%- include('partials/header', { title: 'Einloggen' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIOSK Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="form-container">
-  <div class="form-title">Zugang</div>
+    <div class="form-container" style="box-shadow:none; background:transparent; border:none; margin:0 auto; max-width:340px;">
+      <div class="form-title">Zugang</div>
 
-  <% if (banned) { %>
-    <div class="alert alert-error">Zugang dauerhaft verweigert.</div>
-  <% } %>
+      <% if (banned) { %>
+        <div class="alert alert-error">Zugang dauerhaft verweigert.</div>
+      <% } %>
 
-  <% if (error) { %>
-    <div class="alert alert-error"><%= error %></div>
-  <% } %>
+      <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+      <% } %>
 
-  <form method="POST" action="/login" autocomplete="off">
-    <div class="form-group">
-      <label>Zugangscode (8 Ziffern)</label>
-      <input type="text"
-             name="code"
-             maxlength="8"
-             placeholder="&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;"
-             inputmode="numeric"
-             pattern="\d{8}"
-             autocomplete="off"
-             autofocus>
+      <form method="POST" action="/login" autocomplete="off">
+        <div class="form-group">
+          <label>Zugangscode (8 Ziffern)</label>
+          <input type="text"
+                 name="code"
+                 maxlength="8"
+                 placeholder="&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;"
+                 inputmode="numeric"
+                 pattern="\d{8}"
+                 autocomplete="off"
+                 autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Eintreten</button>
+      </form>
+
+      <p class="form-footer-link">
+        Kein Code? <a href="/register">Registrieren</a>
+      </p>
     </div>
-    <button type="submit" class="btn btn-primary btn-block">Eintreten</button>
-  </form>
 
-  <p class="form-footer-link">
-    Kein Code? <a href="/register">Registrieren</a>
-  </p>
-</div>
-
-<%- include('partials/footer') %>
+    <div class="ipad-home"></div>
+  </div>
+</body>
+</html>

@@ -1,48 +1,57 @@
 
-<%- include('partials/header', { title: 'Angebote' }) %>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIOSK</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: var(--bg);">
+  <div class="ipad-frame">
+    <div class="ipad-notch"></div>
 
-<div class="ipad-frame">
-  <div class="ipad-notch"></div>
+    <% if (submitted) { %>
+      <div class="alert alert-success">Inserat eingereicht. Wird nach Prüfung freigeschaltet.</div>
+    <% } %>
 
-  <% if (submitted) { %>
-    <div class="alert alert-success">Inserat eingereicht. Wird nach Prüfung freigeschaltet.</div>
-  <% } %>
-
-  <div class="listings-header">
-    <h2 class="section-title">Aktuelle Angebote</h2>
-    <a href="/listings/new" class="btn btn-primary btn-sm">+ Neues Inserat</a>
-  </div>
-
-  <form class="search-form" method="GET" action="/">
-    <input type="text" name="search" placeholder="Suchen..." value="<%= search %>">
-    <select name="category">
-      <option value="">Alle Kategorien</option>
-      <% ['WAFFEN','SUBSTANZEN','DOKUMENTE','DIENSTLEISTUNGEN','SONSTIGES'].forEach(cat => { %>
-        <option value="<%= cat %>" <%= filterCategory === cat ? 'selected' : '' %>><%= cat %></option>
-      <% }) %>
-    </select>
-    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-    <a href="/" class="btn btn-sm btn-neutral">Reset</a>
-  </form>
-
-  <% if (listings.length === 0) { %>
-    <div class="empty-state">— Keine Angebote gefunden —</div>
-  <% } else { %>
-    <div class="listings-grid">
-      <% listings.forEach(l => { %>
-        <div class="listing-card">
-          <a href="/listings/<%= l.id %>">
-            <div class="listing-category"><%= l.category %></div>
-            <div class="listing-title"><%= l.title %></div>
-            <div class="listing-price"><%= l.price %></div>
-            <div class="listing-meta">Anbieter: #<%= l.user_id %> &nbsp;&bull;&nbsp; <%= new Date(l.created_at).toLocaleDateString('de-DE') %></div>
-          </a>
-        </div>
-      <% }) %>
+    <div class="listings-header">
+      <h2 class="section-title">Aktuelle Angebote</h2>
+      <a href="/listings/new" class="btn btn-primary btn-sm">+ Neues Inserat</a>
     </div>
-  <% } %>
 
-  <div class="ipad-home"></div>
-</div>
+    <form class="search-form" method="GET" action="/">
+      <input type="text" name="search" placeholder="Suchen..." value="<%= search %>">
+      <select name="category">
+        <option value="">Alle Kategorien</option>
+        <% ['WAFFEN','SUBSTANZEN','DOKUMENTE','DIENSTLEISTUNGEN','SONSTIGES'].forEach(cat => { %>
+          <option value="<%= cat %>" <%= filterCategory === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+      <a href="/" class="btn btn-sm btn-neutral">Reset</a>
+    </form>
+
+    <% if (listings.length === 0) { %>
+      <div class="empty-state">— Keine Angebote gefunden —</div>
+    <% } else { %>
+      <div class="listings-grid">
+        <% listings.forEach(l => { %>
+          <div class="listing-card">
+            <a href="/listings/<%= l.id %>">
+              <div class="listing-category"><%= l.category %></div>
+              <div class="listing-title"><%= l.title %></div>
+              <div class="listing-price"><%= l.price %></div>
+              <div class="listing-meta">Anbieter: #<%= l.user_id %> &nbsp;&bull;&nbsp; <%= new Date(l.created_at).toLocaleDateString('de-DE') %></div>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <div class="ipad-home"></div>
+  </div>
+</body>
+</html>
 
 <%- include('partials/footer') %>
