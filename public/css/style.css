@@ -1,4 +1,23 @@
-﻿/* Modernes Login-Card-Design */
+﻿body {
+  background: #e5e5e5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ipad-container {
+  background: #fff;
+  border: 16px solid #222;
+  border-radius: 32px;
+  box-shadow: 0 0 40px 0 rgba(0,0,0,0.5);
+  padding: 32px;
+  max-width: 900px;
+  width: 100%;
+  min-height: 600px;
+  box-sizing: border-box;
+}
+/* Modernes Login-Card-Design */
 .login-card {
   background: var(--bg-card);
   border-radius: 22px;
